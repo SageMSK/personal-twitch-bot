@@ -9,4 +9,4 @@ const botUser = {
   info: 'this client bot was created with tmiJS (https://www.tmijs.org/) with NodeJS (5.x)(https://nodejs.org/en/).'
 };
 
-module.exports = botUser
+module.exports = botUser;

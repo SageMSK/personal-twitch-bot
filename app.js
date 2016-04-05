@@ -1,10 +1,10 @@
 'use strict';
 
 const tmi = require('tmi.js'),
-      moment = require('moment'),
       dice = require('./games/dice'),
       roulette = require('./games/russianRoulette'),
-      botName = require('./config/botUser');
+      botName = require('./config/botUser'),
+      info = require('./config/commandData');
 
 const options = {
   options: {
@@ -32,15 +32,16 @@ client.on('connected', (address, port) => {
 client.on('chat', (channel, user, message, self) => {
   switch (message) {
     case "!banmebitch":
-      client.say('sagemonkey', `${user['display-name']}, you want SOME OF THIS BAN HAMMER?! DON'T TEST ME BRUH!`);
+      client.say('sagemonkey', `${user['display-name']}, ${info.banme}`);
       break;
 
     case "!bot":
       client.say('sagemonkey', `Hey ${user['display-name']}, ${botName.info}`);
-      break
+      break;
 
     case "!commands":
-      client.say('sagemonkey', `Hey ${user['display-name']}, here are some useful commands! bot, commands, twitter, banmebitch, slapme, time, dice, russianroulette, mods`);
+      let allCommands = Object.keys(info);
+      client.say('sagemonkey', `Hey ${user['display-name']}, Here are some useful commands: ${allCommands}`);
       break;
 
     case "!dice":
@@ -58,13 +59,17 @@ client.on('chat', (channel, user, message, self) => {
       break;
 
     case "!time":
-      client.say('sagemonkey', `Hey ${user['display-name']}, It is currently, ${moment().format('LT')} EST for Sage.`);
+      client.say('sagemonkey', `Hey ${user['display-name']}, ${info.currentTime}`);
       break;
 
     case "!twitter":
-      client.say('sagemonkey', `Hey ${user['display-name']}, SageMonkey's twitter is https://twitter.com/sagemonkeys`);
+      client.say('sagemonkey', `Hey ${user['display-name']}, ${info.twitterInfo}`);
       break;
-  }
+
+    case "!schedule":
+      client.say('sagemonkey', `${info.schedule}`);
+      break;
+  };
 });
 
 
